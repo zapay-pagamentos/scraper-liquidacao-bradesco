@@ -1,0 +1,17 @@
+version: '2'
+services:
+  get_receipt_rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=zapay
+      - RABBITMQ_DEFAULT_PASS=rabbitzapay
+      - RABBITMQ_DEFAULT_VHOST=zapayvhost
+
+  get_receipt:
+    build: .
+    volumes:
+       - .:/code
+    ports:
+      - 50:5000
+    depends_on:
+      - get_receipt_rabbitmq
